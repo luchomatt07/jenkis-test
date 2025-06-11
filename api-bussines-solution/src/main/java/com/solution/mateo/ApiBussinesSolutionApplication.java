@@ -14,8 +14,9 @@ public class ApiBussinesSolutionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiBussinesSolutionApplication.class, args);
 
-		/** Implementación de contrapresión **/
 
+		/** Implementación de contrapresión **/
+/*
 		Flux.range(1, 100)
 				.onBackpressureBuffer(10) // Buffer size to handle overflow
 				.publishOn(Schedulers.parallel())
@@ -28,7 +29,7 @@ public class ApiBussinesSolutionApplication {
 					}
 				});
 
-
+*/
 	}
 
 }
