@@ -28,10 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
-		<jacoco.version>0.8.13</jacoco.version>
-		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+		<jacoco.version>0.8.8</jacoco.version>
 		<sonar.language>java</sonar.language>
 		<sonar.coverage.exclusions>
 			**/com/solution/mateo/**
@@ -125,46 +122,38 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>io/truongbn/github/jacoco/JacocoApplication.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
-						<id>default-prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>default-prepare-agent-integration</id>
-						<goals>
-							<goal>prepare-agent-integration</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
+						<id>report</id>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>default-report-integration</id>
-						<goals>
-							<goal>report-integration</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-check</id>
+						<id>jacoco-check</id>
 						<goals>
 							<goal>check</goal>
 						</goals>
 						<configuration>
 							<rules>
 								<rule>
-									<element>BUNDLE</element>
+									<element>PACKAGE</element>
 									<limits>
 										<limit>
-											<counter>COMPLEXITY</counter>
+											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.60</minimum>
+											<minimum>90%</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -185,14 +174,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.0</version>
-				<configuration>
-					<argLine>-XX:+EnableDynamicAgentLoading -Xshare:off</argLine>
-				</configuration>
-			</plugin>
+
 		</plugins>
 	</build>
 
